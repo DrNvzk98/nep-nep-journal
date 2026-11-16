@@ -151,8 +151,8 @@
       <div class="glass-card rounded-3xl p-5 shadow-sm border-emerald-200 bg-gradient-to-br from-emerald-50/80 to-teal-50/60 space-y-3">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
-            <h2 class="font-extrabold text-base text-emerald-950">📖 Setoran Hafalan Harian Siswa</h2>
-            <p class="text-xs text-emerald-700">Pantau siapa yang sudah maju & kelanjutan ayatnya</p>
+            <h2 class="font-extrabold text-base text-emerald-950">📖 Setoran & Penilaian 1 Surah Siswa</h2>
+            <p class="text-xs text-emerald-700">Pantau setoran harian & penilaian 1 surah penuh</p>
           </div>
           <span id="hafalanCounterBadge" class="text-xs font-extrabold px-3 py-1.5 rounded-full bg-emerald-600 text-white shadow-xs">
             0 / 0 Siswa Setor
@@ -166,36 +166,35 @@
 
         <!-- Filter & Quick Action -->
         <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
-          <div class="flex gap-1.5">
+          <div class="flex flex-wrap gap-1.5">
             <button type="button" data-filter="all" class="hafalan-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-700 text-white">Semua</button>
             <button type="button" data-filter="pending" class="hafalan-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200">Belum Setor</button>
             <button type="button" data-filter="done" class="hafalan-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200">Sudah Setor</button>
+            <button type="button" data-filter="surah1" class="hafalan-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-purple-700 border border-purple-200">📖 1 Surah</button>
           </div>
           <button type="button" id="btnToggleManageStudents" class="text-xs font-bold text-indigo-700 bg-white hover:bg-indigo-50 border border-indigo-200 px-3 py-1.5 rounded-xl">
-            👥 Kelola Daftar Siswa
+            👥 Kelola Siswa
           </button>
         </div>
       </div>
 
-      <!-- Panel Kelola Daftar Siswa (Bisa Buka/Tutup) -->
+      <!-- Panel Kelola Daftar Siswa -->
       <div id="manageStudentsPanel" class="hidden glass-card rounded-3xl p-5 shadow-sm border-indigo-200 bg-indigo-50/40 space-y-3">
         <div class="flex items-center justify-between">
           <h3 class="font-extrabold text-sm text-indigo-950">👥 Tambah / Atur Nama Siswa Bimbingan</h3>
           <span id="totalStudentCount" class="text-xs font-bold text-indigo-600">0 Siswa</span>
         </div>
         <div class="flex gap-2">
-          <input type="text" id="newStudentName" placeholder="Ketik nama siswa (bisa pisahkan dengan koma untuk banyak nama)..." class="flex-1 text-sm px-3.5 py-2.5 rounded-xl border border-indigo-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          <input type="text" id="newStudentName" placeholder="Ketik nama siswa (pisahkan dengan koma untuk banyak nama)..." class="flex-1 text-sm px-3.5 py-2.5 rounded-xl border border-indigo-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500" />
           <button type="button" id="btnAddStudent" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm rounded-xl shrink-0">
             + Tambah
           </button>
         </div>
-        <p class="text-[11px] text-slate-500">Tips: Kamu bisa langsung mengetik beberapa nama sekaligus dipisah koma, contoh: <em>Ahmad, Budi, Citra, Dewi</em>.</p>
+        <p class="text-[11px] text-slate-500">Tips: Bisa mengetik beberapa nama sekaligus dipisah koma, contoh: <em>Ahmad, Budi, Citra, Dewi</em>.</p>
       </div>
 
       <!-- Daftar Kartu Siswa -->
-      <div id="studentHafalanList" class="space-y-3">
-        <!-- Rendered dynamically -->
-      </div>
+      <div id="studentHafalanList" class="space-y-3"></div>
     </section>
 
     <!-- ==================== TAB 3: JURNAL & SIMPAN ==================== -->
@@ -267,12 +266,12 @@
             <p id="statAvgProgress" class="text-2xl font-extrabold text-emerald-950 mt-1">0%</p>
           </div>
           <div class="p-4 rounded-2xl bg-amber-50 border border-amber-100">
-            <p class="text-xs font-semibold text-amber-600">Total Setoran Siswa</p>
+            <p class="text-xs font-semibold text-amber-600">Total Setoran</p>
             <p id="statTotalHafalan" class="text-2xl font-extrabold text-amber-950 mt-1">0x</p>
           </div>
           <div class="p-4 rounded-2xl bg-purple-50 border border-purple-100">
-            <p class="text-xs font-semibold text-purple-600">Mood Dominan</p>
-            <p id="statTopMood" class="text-base font-extrabold text-purple-950 mt-2 truncate">-</p>
+            <p class="text-xs font-semibold text-purple-600">Ujian 1 Surah</p>
+            <p id="statTotalSurah1" class="text-2xl font-extrabold text-purple-950 mt-1">0x</p>
           </div>
         </div>
 
@@ -286,7 +285,7 @@
         </div>
 
         <div>
-          <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-2">Arsip Jurnal & Setoran Bulan Ini</h3>
+          <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-2">Arsip Jurnal & Penilaian Bulan Ini</h3>
           <div id="monthlyHistoryList" class="space-y-2.5 max-h-80 overflow-y-auto pr-1"></div>
         </div>
       </div>
@@ -317,7 +316,7 @@
       <div class="glass-card rounded-3xl p-5 shadow-sm space-y-4">
         <h2 class="font-extrabold text-base text-slate-800">☁️ Koneksi Google Spreadsheet</h2>
         <p class="text-xs text-slate-600 leading-relaxed">
-          Tempelkan <strong>URL Web App Google Apps Script</strong> di bawah ini agar data jurnal dan rekap setoran hafalan 15 siswa otomatis masuk ke Google Sheets.
+          Tempelkan <strong>URL Web App Google Apps Script</strong> di bawah ini agar data jurnal, setoran hafalan, dan penilaian 1 surah otomatis masuk ke Google Sheets.
         </p>
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Google Apps Script Web App URL</label>
@@ -347,12 +346,12 @@
 
   </main>
 
-  <!-- ==================== MODAL INPUT SETORAN SISWA ==================== -->
+  <!-- ==================== MODAL INPUT SETORAN & PENILAIAN 1 SURAH ==================== -->
   <div id="hafalanModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-md w-full p-5 shadow-2xl space-y-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-5 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b border-slate-100 pb-3">
         <div>
-          <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-600">Catat Setoran Hafalan</span>
+          <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-600">Catat Setoran / Penilaian</span>
           <h3 id="modalStudentName" class="text-lg font-extrabold text-slate-900">Nama Siswa</h3>
         </div>
         <button type="button" id="btnCloseHafalanModal" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 font-bold text-slate-600">✕</button>
@@ -364,17 +363,41 @@
 
       <div class="space-y-3">
         <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">Jenis Setoran</label>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Jenis Setoran / Ujian</label>
           <select id="modalSetoranType" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white font-semibold">
             <option value="Ziyadah (Baru)">🌱 Ziyadah (Hafalan Baru)</option>
             <option value="Murajaah (Ulang)">🔁 Murajaah (Mengulang)</option>
-            <option value="Tasmi'">🎙️ Tasmi' / Ujian</option>
+            <option value="Penilaian 1 Surah">📖 Penilaian 1 Surah (Ujian Penuh)</option>
+            <option value="Tasmi'">🎙️ Tasmi' / Ujian Juz</option>
           </select>
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">Surah & Ayat / Juz / Halaman</label>
+          <label id="lblSurahAyat" class="block text-xs font-bold text-slate-700 mb-1">Surah & Ayat / Juz / Halaman</label>
           <input type="text" id="modalSurahAyat" placeholder="Contoh: An-Naba 1-20 atau Juz 30 Hal 582" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+        </div>
+
+        <!-- Khusus Penilaian 1 Surah (Skor Angka & Tajwid) -->
+        <div id="surah1GradingBox" class="hidden p-3.5 rounded-2xl bg-purple-50 border border-purple-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-extrabold text-purple-900">🏆 Form Penilaian 1 Surah Penuh</span>
+            <span id="autoGradeBadge" class="text-[11px] font-extrabold px-2 py-0.5 rounded-md bg-purple-600 text-white">Nilai: -</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2.5">
+            <div>
+              <label class="block text-[11px] font-bold text-purple-800 mb-1">Nilai Angka (0 - 100)</label>
+              <input type="number" id="modalSurahScore" min="0" max="100" placeholder="Contoh: 92" class="w-full text-sm font-bold px-3 py-2 rounded-xl border border-purple-200 bg-white focus:outline-none focus:ring-2 focus:ring-purple-500" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-purple-800 mb-1">Kualitas Tajwid & Makhraj</label>
+              <select id="modalTajwidGrade" class="w-full text-xs font-bold px-2.5 py-2.5 rounded-xl border border-purple-200 bg-white">
+                <option value="Mumtaz (Sangat Baik)">Mumtaz (Sangat Baik)</option>
+                <option value="Jayyid Jiddan (Baik Sekali)">Jayyid Jiddan (Baik Sekali)</option>
+                <option value="Jayyid (Baik)">Jayyid (Baik)</option>
+                <option value="Maqbul (Cukup / Perlu Latihan)">Maqbul (Cukup)</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <div>
@@ -388,7 +411,7 @@
 
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Catatan Tajwid / Koreksi (Opsional)</label>
-          <input type="text" id="modalHafalanNote" placeholder="Contoh: Perhatikan mad thabi'i & dengung..." class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+          <input type="text" id="modalHafalanNote" placeholder="Contoh: Lulus 1 surah penuh tanpa teguran..." class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
         </div>
       </div>
 
@@ -397,7 +420,7 @@
           Batal Setor
         </button>
         <button type="button" id="btnSaveStudentHafalan" class="flex-1 py-3 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow">
-          ✅ Simpan Setoran
+          ✅ Simpan Penilaian
         </button>
       </div>
     </div>
@@ -444,7 +467,6 @@
         if (savedStudents) {
           studentList = JSON.parse(savedStudents);
         } else {
-          // Default 15 template siswa agar siap pakai & mudah diedit
           studentList = Array.from({ length: 15 }, (_, i) => ({
             id: 'std_' + (i + 1),
             name: `Siswa ${i + 1}`
@@ -618,7 +640,6 @@
           targetBtn.classList.remove('text-slate-600');
         }
 
-        // Hide date bar on Rekap & Settings
         const dateCard = document.getElementById('sharedDateCard');
         if (tabName === 'recap' || tabName === 'settings') {
           dateCard.classList.add('hidden');
@@ -679,7 +700,7 @@
         loadDayData();
       });
 
-      // ==================== SETORAN HAFALAN SISWA ====================
+      // ==================== SETORAN HAFALAN & PENILAIAN 1 SURAH ====================
       function getLastHafalanBeforeDate(studentId, currentDateStr) {
         const pastDates = Object.keys(appData).filter(d => d < currentDateStr).sort().reverse();
         for (const d of pastDates) {
@@ -689,6 +710,39 @@
         }
         return null;
       }
+
+      function toggleSurah1GradingUI() {
+        const typeVal = document.getElementById('modalSetoranType').value;
+        const box = document.getElementById('surah1GradingBox');
+        const lbl = document.getElementById('lblSurahAyat');
+        const inp = document.getElementById('modalSurahAyat');
+
+        if (typeVal === 'Penilaian 1 Surah') {
+          box.classList.remove('hidden');
+          lbl.textContent = 'Nama Surah yang Diujikan (1 Surah Penuh)';
+          inp.placeholder = 'Contoh: Surah Al-Mulk (1-30) atau Surah An-Naba';
+        } else {
+          box.classList.add('hidden');
+          lbl.textContent = 'Surah & Ayat / Juz / Halaman';
+          inp.placeholder = 'Contoh: An-Naba 1-20 atau Juz 30 Hal 582';
+        }
+      }
+
+      document.getElementById('modalSetoranType').addEventListener('change', toggleSurah1GradingUI);
+
+      document.getElementById('modalSurahScore').addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        const badge = document.getElementById('autoGradeBadge');
+        if (isNaN(val)) {
+          badge.textContent = 'Nilai: -';
+          return;
+        }
+        let grade = 'D (Ulang)';
+        if (val >= 90) grade = 'A (Mumtaz)';
+        else if (val >= 80) grade = 'B (Jayyid Jiddan)';
+        else if (val >= 70) grade = 'C (Jayyid)';
+        badge.textContent = `${val} • ${grade}`;
+      });
 
       function renderStudentHafalan() {
         const dateStr = document.getElementById('selectedDate').value;
@@ -703,40 +757,66 @@
         document.getElementById('totalStudentCount').textContent = `${totalStudents} Siswa`;
 
         if (totalStudents === 0) {
-          container.innerHTML = `<div class="glass-card rounded-3xl p-8 text-center text-xs sm:text-sm text-slate-400">Belum ada nama siswa. Klik tombol <strong>👥 Kelola Daftar Siswa</strong> di atas untuk menambahkan 15 siswamu.</div>`;
+          container.innerHTML = `<div class="glass-card rounded-3xl p-8 text-center text-xs sm:text-sm text-slate-400">Belum ada nama siswa. Klik tombol <strong>👥 Kelola Siswa</strong> di atas untuk menambahkan 15 siswamu.</div>`;
           return;
         }
 
         const filtered = studentList.filter(s => {
-          const isDone = Boolean(record.hafalan[s.id]);
-          if (currentHafalanFilter === 'done') return isDone;
-          if (currentHafalanFilter === 'pending') return !isDone;
+          const entry = record.hafalan[s.id];
+          if (currentHafalanFilter === 'done') return Boolean(entry);
+          if (currentHafalanFilter === 'pending') return !entry;
+          if (currentHafalanFilter === 'surah1') return entry && entry.type === 'Penilaian 1 Surah';
           return true;
         });
 
         container.innerHTML = '';
+        if (filtered.length === 0) {
+          container.innerHTML = `<div class="glass-card rounded-3xl p-6 text-center text-xs text-slate-400">Tidak ada data siswa pada filter ini.</div>`;
+          return;
+        }
+
         filtered.forEach((student, idx) => {
           const todaySetoran = record.hafalan[student.id];
           const lastHistory = getLastHafalanBeforeDate(student.id, dateStr);
+          const isSurah1 = todaySetoran && todaySetoran.type === 'Penilaian 1 Surah';
 
           const card = document.createElement('div');
-          card.className = `glass-card rounded-2xl p-4 shadow-xs transition ${todaySetoran ? 'border-emerald-300 bg-emerald-50/40' : 'border-slate-200 bg-white'}`;
+          card.className = `glass-card rounded-2xl p-4 shadow-xs transition ${
+            isSurah1 ? 'border-purple-300 bg-purple-50/40' :
+            todaySetoran ? 'border-emerald-300 bg-emerald-50/40' : 'border-slate-200 bg-white'
+          }`;
 
-          const statusHtml = todaySetoran
-            ? `<div class="mt-2 p-2.5 rounded-xl bg-white border border-emerald-200 space-y-1">
-                 <div class="flex flex-wrap items-center gap-1.5">
-                   <span class="text-[11px] font-extrabold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md">${todaySetoran.type}</span>
-                   <span class="text-xs font-extrabold text-slate-800">${todaySetoran.surahAyat}</span>
-                   <span class="text-[11px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-md">${todaySetoran.predikat}</span>
-                 </div>
-                 ${todaySetoran.note ? `<p class="text-[11px] text-slate-500">📝 ${todaySetoran.note}</p>` : ''}
-               </div>`
-            : `<p class="text-[11px] text-slate-400 mt-1">${lastHistory ? `Terakhir (${lastHistory.date}): <strong>${lastHistory.surahAyat}</strong> (${lastHistory.predikat})` : 'Belum ada riwayat setoran sebelumnya'}</p>`;
+          let statusHtml = '';
+          if (todaySetoran) {
+            const typeBadgeClass = isSurah1
+              ? 'text-purple-800 bg-purple-100'
+              : 'text-emerald-700 bg-emerald-100';
+            const scoreBadge = (isSurah1 && todaySetoran.score !== undefined && todaySetoran.score !== '')
+              ? `<span class="text-[11px] font-extrabold text-white bg-purple-600 px-2 py-0.5 rounded-md">Nilai: ${todaySetoran.score}</span>`
+              : '';
+            const tajwidBadge = (isSurah1 && todaySetoran.tajwid)
+              ? `<span class="text-[10px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-md">${todaySetoran.tajwid}</span>`
+              : '';
+
+            statusHtml = `
+              <div class="mt-2 p-2.5 rounded-xl bg-white border ${isSurah1 ? 'border-purple-200' : 'border-emerald-200'} space-y-1.5">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="text-[11px] font-extrabold ${typeBadgeClass} px-2 py-0.5 rounded-md">${isSurah1 ? '📖 Penilaian 1 Surah' : todaySetoran.type}</span>
+                  <span class="text-xs font-extrabold text-slate-800">${todaySetoran.surahAyat}</span>
+                  ${scoreBadge}
+                  <span class="text-[11px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-md">${todaySetoran.predikat}</span>
+                </div>
+                ${tajwidBadge ? `<div>${tajwidBadge}</div>` : ''}
+                ${todaySetoran.note ? `<p class="text-[11px] text-slate-500">📝 ${todaySetoran.note}</p>` : ''}
+              </div>`;
+          } else {
+            statusHtml = `<p class="text-[11px] text-slate-400 mt-1">${lastHistory ? `Terakhir (${lastHistory.date}): <strong>${lastHistory.surahAyat}</strong> (${lastHistory.type}${lastHistory.score ? ' • Nilai ' + lastHistory.score : ''})` : 'Belum ada riwayat setoran sebelumnya'}</p>`;
+          }
 
           card.innerHTML = `
             <div class="flex items-start justify-between gap-2">
               <div class="flex items-center gap-2.5">
-                <span class="w-7 h-7 rounded-xl ${todaySetoran ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-600'} font-extrabold text-xs flex items-center justify-center shrink-0">
+                <span class="w-7 h-7 rounded-xl ${isSurah1 ? 'bg-purple-600 text-white' : todaySetoran ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-600'} font-extrabold text-xs flex items-center justify-center shrink-0">
                   ${todaySetoran ? '✓' : idx + 1}
                 </span>
                 <div>
@@ -745,7 +825,7 @@
               </div>
               <div class="flex items-center gap-1.5">
                 <button type="button" class="btn-input-setoran px-3 py-1.5 rounded-xl text-xs font-bold ${todaySetoran ? 'bg-slate-800 text-white' : 'bg-emerald-600 hover:bg-emerald-700 text-white'} transition">
-                  ${todaySetoran ? '✏️ Edit' : '+ Setor'}
+                  ${todaySetoran ? '✏️ Edit' : '+ Setor / Nilai'}
                 </button>
                 <button type="button" class="btn-rename-student p-1.5 text-slate-400 hover:text-indigo-600 text-xs" title="Ubah Nama">✎</button>
                 <button type="button" class="btn-del-student p-1.5 text-slate-400 hover:text-rose-600 text-xs" title="Hapus Siswa">🗑️</button>
@@ -784,7 +864,9 @@
           document.querySelectorAll('.hafalan-filter-btn').forEach(b => {
             b.className = 'hafalan-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200';
           });
-          btn.className = 'hafalan-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-700 text-white';
+          btn.className = currentHafalanFilter === 'surah1'
+            ? 'hafalan-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-purple-700 text-white'
+            : 'hafalan-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-700 text-white';
           renderStudentHafalan();
         });
       });
@@ -819,15 +901,19 @@
         document.getElementById('modalStudentName').textContent = student.name;
         const lastBox = document.getElementById('modalLastRecordBox');
         if (lastHistory) {
-          lastBox.innerHTML = `📌 <strong>Setoran Terakhir (${lastHistory.date}):</strong> ${lastHistory.type} — <strong>${lastHistory.surahAyat}</strong> (${lastHistory.predikat})`;
+          lastBox.innerHTML = `📌 <strong>Catatan Terakhir (${lastHistory.date}):</strong> ${lastHistory.type} — <strong>${lastHistory.surahAyat}</strong> (${lastHistory.predikat}${lastHistory.score ? ' • Nilai ' + lastHistory.score : ''})`;
         } else {
           lastBox.textContent = 'Belum ada riwayat setoran sebelumnya untuk siswa ini.';
         }
 
         document.getElementById('modalSetoranType').value = existing ? existing.type : 'Ziyadah (Baru)';
         document.getElementById('modalSurahAyat').value = existing ? existing.surahAyat : '';
+        document.getElementById('modalSurahScore').value = existing && existing.score !== undefined ? existing.score : '';
+        document.getElementById('modalTajwidGrade').value = existing && existing.tajwid ? existing.tajwid : 'Mumtaz (Sangat Baik)';
         document.getElementById('modalHafalanNote').value = existing ? (existing.note || '') : '';
         setPredikatSelection(existing ? existing.predikat : '⭐ Lancar');
+        toggleSurah1GradingUI();
+        document.getElementById('modalSurahScore').dispatchEvent(new Event('input'));
 
         const modal = document.getElementById('hafalanModal');
         modal.classList.remove('hidden');
@@ -857,13 +943,23 @@
 
       document.getElementById('btnSaveStudentHafalan').addEventListener('click', () => {
         const surahAyat = document.getElementById('modalSurahAyat').value.trim();
-        if (!surahAyat) return showToast('⚠️ Isi Surah & Ayat atau Juz/Halaman dulu ya!');
+        if (!surahAyat) return showToast('⚠️ Isi nama surah / ayat dulu ya!');
+
+        const typeVal = document.getElementById('modalSetoranType').value;
+        const scoreVal = document.getElementById('modalSurahScore').value.trim();
+        const tajwidVal = document.getElementById('modalTajwidGrade').value;
+
+        if (typeVal === 'Penilaian 1 Surah' && !scoreVal) {
+          return showToast('⚠️ Masukkan nilai angka (0-100) untuk penilaian 1 surah!');
+        }
 
         const dateStr = document.getElementById('selectedDate').value;
         const record = getDayRecord(dateStr);
         record.hafalan[editingStudentId] = {
-          type: document.getElementById('modalSetoranType').value,
+          type: typeVal,
           surahAyat,
+          score: typeVal === 'Penilaian 1 Surah' ? scoreVal : '',
+          tajwid: typeVal === 'Penilaian 1 Surah' ? tajwidVal : '',
           predikat: selectedPredikat,
           note: document.getElementById('modalHafalanNote').value.trim()
         };
@@ -875,7 +971,7 @@
         modal.classList.remove('flex');
         renderStudentHafalan();
         updateNepNepGreeting();
-        showToast('✅ Setoran hafalan tersimpan!');
+        showToast(typeVal === 'Penilaian 1 Surah' ? '🏆 Penilaian 1 surah tersimpan!' : '✅ Setoran hafalan tersimpan!');
       });
 
       document.getElementById('btnResetStudentDay').addEventListener('click', () => {
@@ -890,7 +986,7 @@
         modal.classList.remove('flex');
         renderStudentHafalan();
         updateNepNepGreeting();
-        showToast('🗑️ Setoran hari ini dibatalkan.');
+        showToast('🗑️ Catatan setoran hari ini dibatalkan.');
       });
 
       // ==================== TASKS ====================
@@ -1204,7 +1300,8 @@
           .filter(s => record.hafalan[s.id])
           .map(s => {
             const h = record.hafalan[s.id];
-            return `${s.name}: ${h.surahAyat} (${h.type}, ${h.predikat})`;
+            const extraScore = h.score ? `, Nilai: ${h.score}` : '';
+            return `${s.name}: ${h.surahAyat} (${h.type}${extraScore}, ${h.predikat})`;
           });
         const hafalanSummary = hafalanEntries.length > 0
           ? `[${hafalanEntries.length}/${studentList.length} Siswa] ` + hafalanEntries.join(' | ')
@@ -1272,7 +1369,7 @@
               pencapaianUtama: 'Koneksi Nep-Nep ke Spreadsheet Berhasil!',
               catatan: 'Data tes otomatis',
               detailChecklist: '[✓] Tes Koneksi',
-              rekapHafalan: '[15/15 Siswa] Tes Rekap Hafalan'
+              rekapHafalan: '[15/15 Siswa] Ahmad: Al-Mulk (Penilaian 1 Surah, Nilai: 95, ⭐ Lancar)'
             })
           });
           showToast('✅ Tes terkirim! Cek baris baru di Google Spreadsheetmu.');
@@ -1295,34 +1392,35 @@
         const monthPrefix = document.getElementById('recapMonth').value;
         const dates = Object.keys(appData).filter(d => d.startsWith(monthPrefix)).sort();
 
-        let activeDays = 0, totalPct = 0, totalSetoranCount = 0;
-        const moodCounts = {};
+        let activeDays = 0, totalPct = 0, totalSetoranCount = 0, totalSurah1Count = 0;
 
         dates.forEach(d => {
           const rec = appData[d];
           const tCount = rec.tasks.length;
           const dCount = rec.tasks.filter(t => t.done).length;
-          const hCount = rec.hafalan ? Object.keys(rec.hafalan).length : 0;
+          const hafalanVals = rec.hafalan ? Object.values(rec.hafalan) : [];
+          const hCount = hafalanVals.length;
+          const s1Count = hafalanVals.filter(h => h.type === 'Penilaian 1 Surah').length;
+
           if (tCount > 0 || hCount > 0 || rec.wins || rec.notes) {
             activeDays++;
             totalPct += tCount === 0 ? 0 : Math.round((dCount / tCount) * 100);
             totalSetoranCount += hCount;
-            if (rec.mood) moodCounts[rec.mood] = (moodCounts[rec.mood] || 0) + 1;
+            totalSurah1Count += s1Count;
           }
         });
 
         const avgPct = activeDays === 0 ? 0 : Math.round(totalPct / activeDays);
-        const topMood = Object.entries(moodCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || '-';
 
         document.getElementById('statActiveDays').textContent = `${activeDays} Hari`;
         document.getElementById('statAvgProgress').textContent = `${avgPct}%`;
         document.getElementById('statTotalHafalan').textContent = `${totalSetoranCount}x`;
-        document.getElementById('statTopMood').textContent = topMood;
+        document.getElementById('statTotalSurah1').textContent = `${totalSurah1Count}x`;
 
         const insightEl = document.getElementById('monthlyNepNepInsight');
         insightEl.innerHTML = activeDays === 0
           ? `🤖 <strong>Analisis Bulanan Nep-Nep:</strong> Belum ada catatan jurnal di bulan <strong>${monthPrefix}</strong>.`
-          : `🤖 <strong>Analisis Bulanan Nep-Nep (${monthPrefix}):</strong> Kamu aktif mencatat selama <strong>${activeDays} hari</strong>, menerima total <strong>${totalSetoranCount} setoran hafalan siswa</strong>, dengan rata-rata penyelesaian jadwal <strong>${avgPct}%</strong>.`;
+          : `🤖 <strong>Analisis Bulanan Nep-Nep (${monthPrefix}):</strong> Kamu aktif mencatat selama <strong>${activeDays} hari</strong>, menerima total <strong>${totalSetoranCount} setoran hafalan</strong> (termasuk <strong>${totalSurah1Count}x penilaian 1 surah penuh</strong>), dengan rata-rata penyelesaian jadwal <strong>${avgPct}%</strong>.`;
 
         const chartEl = document.getElementById('monthlyChart');
         chartEl.innerHTML = dates.length === 0
@@ -1348,14 +1446,17 @@
               const rec = appData[d];
               const tCount = rec.tasks.length;
               const dCount = rec.tasks.filter(t => t.done).length;
-              const hCount = rec.hafalan ? Object.keys(rec.hafalan).length : 0;
+              const hafalanVals = rec.hafalan ? Object.values(rec.hafalan) : [];
+              const hCount = hafalanVals.length;
+              const s1Count = hafalanVals.filter(h => h.type === 'Penilaian 1 Surah').length;
               const pct = tCount === 0 ? 0 : Math.round((dCount / tCount) * 100);
               return `
                 <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
                   <div class="flex flex-wrap items-center justify-between gap-1">
                     <span class="text-xs font-extrabold text-indigo-700">📅 ${d} • ${rec.mood || ''}</span>
-                    <div class="flex gap-1.5">
+                    <div class="flex flex-wrap gap-1.5">
                       <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">📖 ${hCount}/${studentList.length} Setor</span>
+                      ${s1Count > 0 ? `<span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800">🏆 ${s1Count}x 1 Surah</span>` : ''}
                       <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800">Jadwal ${pct}%</span>
                     </div>
                   </div>
@@ -1372,13 +1473,17 @@
         const dates = Object.keys(appData).filter(d => d.startsWith(monthPrefix)).sort();
         if (dates.length === 0) return showToast('⚠️ Tidak ada data di bulan ini untuk diunduh.');
 
-        let csv = 'Tanggal,Mood,Progres Jadwal,Jumlah Setor Siswa,Pencapaian Utama,Catatan,Detail Setoran Hafalan\n';
+        let csv = 'Tanggal,Mood,Progres Jadwal,Jumlah Setor Siswa,Pencapaian Utama,Catatan,Detail Setoran & Nilai 1 Surah\n';
         dates.forEach(d => {
           const rec = appData[d];
           const tCount = rec.tasks.length;
           const dCount = rec.tasks.filter(t => t.done).length;
           const pct = tCount === 0 ? 0 : Math.round((dCount / tCount) * 100);
-          const hEntries = studentList.filter(s => rec.hafalan && rec.hafalan[s.id]).map(s => `${s.name}: ${rec.hafalan[s.id].surahAyat} (${rec.hafalan[s.id].predikat})`);
+          const hEntries = studentList.filter(s => rec.hafalan && rec.hafalan[s.id]).map(s => {
+            const h = rec.hafalan[s.id];
+            const extra = h.score ? ` - Nilai: ${h.score}` : '';
+            return `${s.name}: ${h.surahAyat} (${h.type}${extra}, ${h.predikat})`;
+          });
           const clean = str => `"${(str || '').replace(/"/g, '""')}"`;
           csv += `${d},${clean(rec.mood)},${pct}%,${hEntries.length}/${studentList.length},${clean(rec.wins)},${clean(rec.notes)},${clean(hEntries.join('; '))}\n`;
         });
